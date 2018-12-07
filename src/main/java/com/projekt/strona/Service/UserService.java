@@ -25,4 +25,8 @@ public class UserService {
         }
         return hashedPassword;
     }
+
+    public String getUserPhoneNumberByItemId(int id) {
+        return this.userDao.getUserPhoneNumberByItemId(id);
+    }
 }

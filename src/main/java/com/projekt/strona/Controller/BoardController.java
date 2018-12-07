@@ -1,9 +1,11 @@
 package com.projekt.strona.Controller;
 
 import com.projekt.strona.Service.BoardService;
+import com.projekt.strona.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +15,9 @@ public class BoardController {
 
     @Autowired
     private BoardService boardService;
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(value = "/")
     public String showIndex(){
@@ -38,6 +43,14 @@ public class BoardController {
     public String showItems(Model model){
         model.addAttribute("itemList",boardService.showItems());
         return "show_items";
+    }
+
+
+    @RequestMapping(value = "/item/{id}", method = RequestMethod.GET)
+    public String showSingleItem(@PathVariable("id") int id, Model model){
+        model.addAttribute("item_description",boardService.showItemDescription(id));
+        model.addAttribute("phone_number",userService.getUserPhoneNumberByItemId(id));
+        return "show_single_item";
     }
 
 }
