@@ -5,6 +5,7 @@
     <title>Strona logowania</title>
 </head>
 <body>
+<div th:replace="fragments/header :: header"/>
 <form th:action="@{/user/login}" method="post">
     <div> Nazwa użytkownika: <input type="text" name="username"/></div>
     <br/>
