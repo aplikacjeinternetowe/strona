@@ -15,6 +15,9 @@
     <a sec:authorize="isAnonymous()" th:href="@{/user/login}">
         <button>Zaloguj</button>
     </a>
+    <a sec:authorize="isAuthenticated()" th:href="@{/show_items}">
+        <button>Lista ogloszen</button>
+    </a>
     <a sec:authorize="isAuthenticated()" th:href="@{/add_item}">
         <button>Dodaj ogłoszenie</button></a>
     <a th:href="@{/user/test_dostepu}">

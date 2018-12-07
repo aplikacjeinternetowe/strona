@@ -1,9 +1,11 @@
 package com.projekt.strona.Service;
 
 import com.projekt.strona.Dao.BoardDao;
+import com.projekt.strona.Entity.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 
 @Service
 public class BoardService {
@@ -14,4 +16,7 @@ public class BoardService {
         boardDao.addItem(itemName,itemDescription,itemPrice,userName);
     }
 
+    public Collection<Item> showItems() {
+        return this.boardDao.showItems();
+    }
 }
