@@ -11,18 +11,29 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class UserController {
 
-
     @Autowired
     private UserService userService;
+
     @RequestMapping(value = "/register",method = RequestMethod.GET)
     public String registerUserPanel(){
         return "register";
     }
+
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String registerUser(@RequestParam(value = "username", defaultValue = " ") String username,
                                @RequestParam(value = "password", defaultValue = " ") String password,
                                @RequestParam(value = "phone_number", defaultValue = " ") String phone_number){
         userService.addUser(username,password,phone_number);
+        return "index";
+    }
+
+    @RequestMapping(value = "/login",method = RequestMethod.GET)
+    public String loginUserPanel(){
+        return "login";
+    }
+
+    @RequestMapping(value = "/test_dostepu",method = RequestMethod.GET)
+    public String testDostepu(){
         return "index";
     }
 
