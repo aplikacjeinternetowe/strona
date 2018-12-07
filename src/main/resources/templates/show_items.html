@@ -22,14 +22,14 @@
             <td style="width: 20%" th:text="${item.date}"></td>
         </tr>
         <tr>
-            <th colspan="5" style="width: 10%; text-align: left">Nazwa przedmiotu:</th>
+            <th colspan="5" style="width: 100%; text-align: left">Nazwa przedmiotu:</th>
         </tr>
         <tr>
             <td colspan="5" th:text="${#strings.abbreviate(item.item_name,90)}"></td>
         </tr>
     </table>
     <form th:action="@{'/item/'+${item.item_id}}" method="get">
-        <button type="submit">Szczegóły</button>
+        <button class="btn btn-default" type="submit">Szczegóły</button>
     </form>
 </div>
 
