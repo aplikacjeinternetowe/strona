@@ -1,8 +1,13 @@
 package com.projekt.strona.Dao;
 
+import com.projekt.strona.Entity.Item;
+import com.projekt.strona.Entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
+import java.util.Collection;
 
 @Repository
 public class UserDao {
@@ -25,5 +30,19 @@ public class UserDao {
         String phoneNumber;
         phoneNumber = jdbcTemplate.queryForObject(sql2, new Object[]{userName}, String.class);
         return phoneNumber;
+    }
+
+    public User getUserDetails(String userName) {
+        String sql = "SELECT user_name,phone_number FROM user WHERE user_name=?";
+        User userDetails;
+        userDetails = (User) jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper(User.class),userName);
+        return userDetails;
+    }
+
+    public Collection<Item> getUserPosts(String userName) {
+        String sql  = "SELECT * FROM item WHERE user_name=?";
+        Collection<Item> userItems;
+        userItems = (Collection<Item>) jdbcTemplate.query(sql, new BeanPropertyRowMapper(Item.class),userName);
+        return userItems;
     }
 }
