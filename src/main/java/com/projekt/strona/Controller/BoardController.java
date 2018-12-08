@@ -1,23 +1,33 @@
 package com.projekt.strona.Controller;
 
 import com.projekt.strona.Service.BoardService;
+import com.projekt.strona.Service.ImageService;
 import com.projekt.strona.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class BoardController {
+
+    @Autowired
+    private ImageService imageService;
 
     @Autowired
     private BoardService boardService;
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ServletContext context;
 
     @RequestMapping(value = "/")
     public String showIndex(){
@@ -33,11 +43,33 @@ public class BoardController {
     public String addItem(@RequestParam(value = "item_name",defaultValue = " ") String itemName,
                           @RequestParam(value = "item_description",defaultValue = " ") String itemDescription,
                           @RequestParam(value = "item_price",defaultValue = " ") String itemPrice,
-                          @RequestParam(value = "user_name",defaultValue = " ") String userName){
-        boardService.addItem(itemName,itemDescription,itemPrice,userName);
+                          @RequestParam(value = "user_name",defaultValue = " ") String userName,
+                          @RequestParam(value = "image_list",defaultValue = " ") String imageList) {
 
-        return "index";
+
+
+            boardService.addItem(itemName, itemDescription, itemPrice, userName);
+
+            if (!(imageList.equals(" "))) {
+                String[] imgList = imageList.split("https");
+                System.out.println("dlugosc przed:" + imgList.length);
+                for (int i = 1; i < imgList.length; i++) {
+                    System.out.println(imgList[i]);
+                    imgList[i] = "https".concat(imgList[i]);
+                    System.out.println(imgList[i]);
+                }
+                System.out.println("dlugosc po:" + imgList.length);
+                int itemId = boardService.getMaxItemId();
+                imageService.addImageLinkToDatabase(imgList,itemId);
+
+            }
+
+
+            String redirectUrl = "/show_items";
+            return "redirect:" + redirectUrl;
+
     }
+
 
     @RequestMapping(value = "/show_items", method = RequestMethod.GET)
     public String showItems(Model model){
