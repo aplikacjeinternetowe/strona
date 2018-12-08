@@ -4,6 +4,7 @@ import com.projekt.strona.Entity.Comment;
 import com.projekt.strona.Entity.Item;
 import com.projekt.strona.Entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -53,5 +54,15 @@ public class UserDao {
         Collection<Comment> userComments;
         userComments = (Collection<Comment>) jdbcTemplate.query(sql, new BeanPropertyRowMapper(Comment.class),userName);
         return userComments;
+    }
+
+    public boolean checkUserName(String userName) {
+        try {
+            String sql = "SELECT * FROM user WHERE user_name=?";
+            jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper(User.class), userName);
+        }catch (EmptyResultDataAccessException e){
+            return false;
+        }
+        return true;
     }
 }

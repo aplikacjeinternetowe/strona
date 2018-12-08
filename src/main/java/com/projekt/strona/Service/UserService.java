@@ -46,4 +46,8 @@ public class UserService {
     public Collection<Comment> getUserComments(String userName) {
         return this.userDao.getUserComments(userName);
     }
+
+    public boolean checkUserName(String username) {
+        return this.userDao.checkUserName(username);
+    }
 }
