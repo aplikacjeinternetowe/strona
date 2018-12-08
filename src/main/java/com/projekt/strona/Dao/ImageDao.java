@@ -1,8 +1,12 @@
 package com.projekt.strona.Dao;
 
+import com.projekt.strona.Entity.Image;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
+import java.util.Collection;
 
 @Repository
 public class ImageDao {
@@ -15,5 +19,13 @@ public class ImageDao {
         for (int i = 1; i < imgList.length; i++) {
             jdbcTemplate.update(sql, new Object[]{imgList[i], itemId});
         }
+    }
+
+    public Collection<Image> getImageName(String id) {
+        String sql = "SELECT * FROM image WHERE item_id=?";
+        Collection<Image> imageNames;
+        imageNames = jdbcTemplate.query(sql, new BeanPropertyRowMapper(Image.class),id);
+
+        return imageNames;
     }
 }

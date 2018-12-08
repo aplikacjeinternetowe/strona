@@ -82,6 +82,10 @@ public class BoardController {
     public String showSingleItem(@PathVariable("id") int id, Model model){
         model.addAttribute("item_description",boardService.showItemDescription(id));
         model.addAttribute("phone_number",userService.getUserPhoneNumberByItemId(id));
+
+        String id1 = Integer.toString(id);
+        model.addAttribute("image_names",imageService.getImageName(id1));
+
         return "show_single_item";
     }
 
