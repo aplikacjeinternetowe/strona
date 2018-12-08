@@ -22,4 +22,14 @@ public class AdminController {
         String redirectUrl = "/show_items";
         return "redirect:" + redirectUrl;
     }
+
+
+    @RequestMapping(value = "/delete/comment",method = RequestMethod.POST)
+    public String deleteComment(@RequestParam(value = "id",defaultValue = " ") String id,
+                                @RequestParam(value = "comment_target",defaultValue = " ") String commentTarget)
+    {
+        if (!(id.equals(" "))) adminService.deleteComment(id);
+        String redirectUrl = "/user/user_profile/" + commentTarget + "/comments";
+        return "redirect:" + redirectUrl;
+    }
 }
