@@ -17,4 +17,12 @@ public class RatingDao {
         String sql2 = "INSERT INTO rating (rating_number,rating_author,rating_target) VALUES (?,?,?)";
         jdbcTemplate.update(sql2, new Object[]{ratingNumber,ratingAuthor,ratingTarget});
     }
+
+    public String getUserRating(String userName) {
+
+        String sql = "SELECT round(avg(rating_number),2) FROM rating WHERE rating_target=?";
+        String userRating;
+        userRating = jdbcTemplate.queryForObject(sql, new Object[]{userName}, String.class);
+        return userRating;
+    }
 }

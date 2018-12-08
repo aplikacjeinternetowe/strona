@@ -13,4 +13,8 @@ public class RatingService {
     public void addRating(int ratingNumber, String ratingAuthor, String ratingTarget) {
         ratingDao.addRating(ratingNumber,ratingAuthor,ratingTarget);
     }
+
+    public String getUserRating(String userName) {
+        return this.ratingDao.getUserRating(userName);
+    }
 }

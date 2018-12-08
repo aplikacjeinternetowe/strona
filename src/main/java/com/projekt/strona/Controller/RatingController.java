@@ -22,4 +22,6 @@ public class RatingController {
         String redirectUrl = "/user/user_profile/" + ratingTarget;
         return "redirect:" + redirectUrl;
     }
+
+
 }
