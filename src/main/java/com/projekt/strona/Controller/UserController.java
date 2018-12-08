@@ -53,4 +53,12 @@ public class UserController {
     }
 
 
+    @RequestMapping(value = "/user_profile/{user_name}/comments",method = RequestMethod.GET)
+    public String showUserComments(@PathVariable("user_name") String userName, Model model){
+        model.addAttribute("user_comments",userService.getUserComments(userName));
+        model.addAttribute("user_name",userName);
+        return "show_user_comments";
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package com.projekt.strona.Dao;
 
+import com.projekt.strona.Entity.Comment;
 import com.projekt.strona.Entity.Item;
 import com.projekt.strona.Entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +45,13 @@ public class UserDao {
         Collection<Item> userItems;
         userItems = (Collection<Item>) jdbcTemplate.query(sql, new BeanPropertyRowMapper(Item.class),userName);
         return userItems;
+    }
+
+    public Collection<Comment> getUserComments(String userName) {
+
+        String sql  = "SELECT * FROM comment WHERE comment_target=?";
+        Collection<Comment> userComments;
+        userComments = (Collection<Comment>) jdbcTemplate.query(sql, new BeanPropertyRowMapper(Comment.class),userName);
+        return userComments;
     }
 }

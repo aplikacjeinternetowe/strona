@@ -1,6 +1,7 @@
 package com.projekt.strona.Service;
 
 import com.projekt.strona.Dao.UserDao;
+import com.projekt.strona.Entity.Comment;
 import com.projekt.strona.Entity.Item;
 import com.projekt.strona.Entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +41,9 @@ public class UserService {
 
     public Collection<Item> getUserPosts(String userName) {
         return this.userDao.getUserPosts(userName);
+    }
+
+    public Collection<Comment> getUserComments(String userName) {
+        return this.userDao.getUserComments(userName);
     }
 }
